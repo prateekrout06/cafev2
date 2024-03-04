@@ -7,6 +7,8 @@ from flask_bcrypt import Bcrypt
 DATABASE = "C:/Users/ethan/PycharmProjects/SmileCafe/smile.db"  # Laptop
 
 app = Flask(__name__)
+bcrypt = Bcrypt(app)
+app.secret_key = "qwertyuiop"
 
 
 def create_connection(db_file):
@@ -45,6 +47,34 @@ def render_contact_page():
 
 @app.route('/login', methods=['POST', 'GET'])
 def render_login():
+    print("Logging in")
+    if request.method == 'POST':
+        email = request.form['email'].strip().lower()
+        password = request.form['password'].strip()
+        print(email)
+        query = """SELECT id, fname, password FROM user WHERE email= ?"""
+        con = create_connection(DATABASE)
+        cur = con.cursor()
+        cur.execute(query, (email,))
+        user_data = cur.fetchone()
+        con.close()
+        print(user_data)
+        try:
+            user_id = user_data[0]
+            first_name = user_data[1]
+            db_password = user_data[2]
+        except IndexError:
+            return redirect('/login?error=Invalid+username+or+password')
+
+        if not bcrypt.check_password_hash(db_password, password):
+            return redirect(request.referrer + "?error=Email+invalid+or+password+incorrect")
+
+        session['email'] = email
+        session['user_id'] = user_id
+        session['firstname'] = first_name
+        print(session)
+        return redirect('/')
+
     return render_template('login.html')
 
 
@@ -64,12 +94,13 @@ def render_signup():
         if len(password) < 8:
             return redirect('\signup?error=Passwords+must+be+at+least+8+characters')
 
+        hashed_password = bcrypt.generate_password_hash(password)
         con = create_connection(DATABASE)
         query = 'INSERT INTO user (fname, lname, email, password) VALUES (?, ?, ?, ?)'
         cur = con.cursor()
 
         try:
-            cur.execute(query, (fname, lname, email, password))
+            cur.execute(query, (fname, lname, email, hashed_password))
         except sqlite3.IntegrityError:
             con.close()
             return redirect('\signup?error=Email+is+already+used')
