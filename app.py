@@ -20,9 +20,18 @@ def create_connection(db_file):
     return None
 
 
+def is_logged_in():
+    if session.get('email') is None:
+        print('not logged in')
+        return False
+    else:
+        print('logged in')
+        return True
+
+
 @app.route('/')
 def render_homepage():
-    return render_template('home.html')
+    return render_template('home.html', logged_in=is_logged_in())
 
 
 @app.route('/menu/<cat_id>')
@@ -47,6 +56,8 @@ def render_contact_page():
 
 @app.route('/login', methods=['POST', 'GET'])
 def render_login():
+    if is_logged_in():
+        return redirect('/menu/1')
     print("Logging in")
     if request.method == 'POST':
         email = request.form['email'].strip().lower()
@@ -78,8 +89,18 @@ def render_login():
     return render_template('login.html')
 
 
+@app.route('/logout')
+def logout():
+    print(list(session.keys()))
+    [session.pop(key) for key in list(session.keys())]
+    print(list(session.keys()))
+    return redirect('/?message=See+you+next+time!')
+
+
 @app.route('/signup', methods=['POST', 'GET'])
 def render_signup():
+    if is_logged_in():
+        return redirect('/menu/1')
     if request.method == 'POST':
         print(request.form)
         fname = request.form.get('fname').title().strip()
@@ -110,7 +131,7 @@ def render_signup():
 
         return redirect('\login')
 
-    return render_template('signup.html')
+    return render_template('signup.html', logged_in=is_logged_in())
 
 
 if __name__ == '__main__':
