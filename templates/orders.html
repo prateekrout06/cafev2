@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block pageheading %}
+{{ label }}orders
+{% endblock %}
+
+{% block main %}
+    <p><a href="/process_order/1">Unprocessed Orders</a> | <a href="/process_order/0">Processed Orders</a></p>
+    {% set control = namespace(last_id=-1) %}
+    {% set control = namespace(total = 0) %}
+    {% for order in orders %}
+        {% if orders[0] != control.last_id %}
+            {% if control.last_id != -1 %}
+                <tr>
+                    <th colspan="4" class="number">Total ${{ control.total }}</th>
+                </tr>
+                        {% set control.total = 0 %}
+    </table>
+            {% endif %}
+    <h3>
+        Order {{ order[0] }} for {{ order[1] }}, time: {{ order[2] }}
+        {% if label == "unprocessed" %}<a href="/process/{{ order[0] }}"> - Mark order as processed</a>{% endif %}</h3>
+    {% set control.last_id = order[0] %}
+    <table class="{{ label }}">
+        <tr>
+            <th>Item</th>
+            <th class="number">Quantity</th>
+            <th class="number">Each</th>
+            <th class="number">Total</th>
+        </tr>
+        {% endif %}
+        <tr>
+            <td>{{ order[3] }}</td>
+            <td class="number">{{ order[4] }}</td>
+            <td class="number">{{ order[5] }}</td>
+            <td class="number">{{ order[4] * order[5]}}</td>
+            {% set control.total = order[4] * order[5] + control.total %}
+        </tr>
+{% endfor %}
+        <tr>
+            <th colspan="4" class="number">Total ${{ control.total }}</th>
+        </tr>
+    </table>
+{% endblock %}

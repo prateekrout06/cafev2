@@ -446,7 +446,7 @@
     <routine id="176" parent="1" name="fts5"/>
     <schema id="177" parent="1" name="main">
       <Current>1</Current>
-      <LastIntrospectionLocalTimestamp>2024-03-02.22:09:45</LastIntrospectionLocalTimestamp>
+      <LastIntrospectionLocalTimestamp>2024-03-09.06:48:15</LastIntrospectionLocalTimestamp>
     </schema>
     <argument id="178" parent="16">
       <ArgumentDirection>R</ArgumentDirection>
@@ -1469,121 +1469,179 @@
       <Position>1</Position>
     </argument>
     <table id="518" parent="177" name="category"/>
-    <table id="519" parent="177" name="products"/>
-    <table id="520" parent="177" name="sqlite_master">
+    <table id="519" parent="177" name="order_contents"/>
+    <table id="520" parent="177" name="orders"/>
+    <table id="521" parent="177" name="products"/>
+    <table id="522" parent="177" name="sqlite_master">
       <System>1</System>
     </table>
-    <table id="521" parent="177" name="sqlite_sequence">
+    <table id="523" parent="177" name="sqlite_sequence">
       <System>1</System>
     </table>
-    <table id="522" parent="177" name="user"/>
-    <column id="523" parent="518" name="id">
+    <table id="524" parent="177" name="user"/>
+    <column id="525" parent="518" name="id">
       <AutoIncrement>1</AutoIncrement>
       <DasType>integer|0s</DasType>
       <Position>1</Position>
     </column>
-    <column id="524" parent="518" name="name">
+    <column id="526" parent="518" name="name">
       <DasType>TEXT|0s</DasType>
       <Position>2</Position>
     </column>
-    <key id="525" parent="518" name="category_pk">
+    <key id="527" parent="518" name="category_pk">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="526" parent="519" name="id">
+    <column id="528" parent="519" name="id">
       <AutoIncrement>1</AutoIncrement>
       <DasType>integer|0s</DasType>
       <Position>1</Position>
     </column>
-    <column id="527" parent="519" name="name">
+    <column id="529" parent="519" name="order_id">
+      <DasType>integer|0s</DasType>
+      <Position>2</Position>
+    </column>
+    <column id="530" parent="519" name="product_id">
+      <DasType>integer|0s</DasType>
+      <Position>3</Position>
+    </column>
+    <column id="531" parent="519" name="quantity">
+      <DasType>integer|0s</DasType>
+      <Position>4</Position>
+    </column>
+    <foreign-key id="532" parent="519" name="order_contents_orders_id_fk">
+      <ColNames>order_id</ColNames>
+      <RefColNames>id</RefColNames>
+      <RefTableName>orders</RefTableName>
+    </foreign-key>
+    <foreign-key id="533" parent="519" name="order_contents_product_id_fk">
+      <ColNames>product_id</ColNames>
+      <RefColNames>id</RefColNames>
+      <RefTableName>product</RefTableName>
+    </foreign-key>
+    <key id="534" parent="519" name="order_contents_pk">
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="535" parent="520" name="id">
+      <AutoIncrement>1</AutoIncrement>
+      <DasType>integer|0s</DasType>
+      <Position>1</Position>
+    </column>
+    <column id="536" parent="520" name="name">
       <DasType>varchar(30)|0s</DasType>
       <Position>2</Position>
     </column>
-    <column id="528" parent="519" name="description">
+    <column id="537" parent="520" name="timestamp">
+      <DasType>date|0s</DasType>
+      <Position>3</Position>
+    </column>
+    <column id="538" parent="520" name="processed">
+      <DasType>integer|0s</DasType>
+      <Position>4</Position>
+    </column>
+    <key id="539" parent="520" name="orders_pk">
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="540" parent="521" name="id">
+      <AutoIncrement>1</AutoIncrement>
+      <DasType>integer|0s</DasType>
+      <Position>1</Position>
+    </column>
+    <column id="541" parent="521" name="name">
+      <DasType>varchar(30)|0s</DasType>
+      <Position>2</Position>
+    </column>
+    <column id="542" parent="521" name="description">
       <DasType>varchar(300)|0s</DasType>
       <Position>3</Position>
     </column>
-    <column id="529" parent="519" name="volume">
+    <column id="543" parent="521" name="volume">
       <DasType>char(6)|0s</DasType>
       <Position>4</Position>
     </column>
-    <column id="530" parent="519" name="image">
+    <column id="544" parent="521" name="image">
       <DasType>varchar(30)|0s</DasType>
       <Position>5</Position>
     </column>
-    <column id="531" parent="519" name="price">
+    <column id="545" parent="521" name="price">
       <DasType>float|0s</DasType>
       <Position>6</Position>
     </column>
-    <column id="532" parent="519" name="cat_id">
+    <column id="546" parent="521" name="cat_id">
       <DasType>integer|0s</DasType>
       <Position>7</Position>
     </column>
-    <key id="533" parent="519" name="products_pk">
+    <key id="547" parent="521" name="products_pk">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="534" parent="520" name="type">
+    <column id="548" parent="522" name="type">
       <DasType>TEXT|0s</DasType>
       <Position>1</Position>
     </column>
-    <column id="535" parent="520" name="name">
+    <column id="549" parent="522" name="name">
       <DasType>TEXT|0s</DasType>
       <Position>2</Position>
     </column>
-    <column id="536" parent="520" name="tbl_name">
+    <column id="550" parent="522" name="tbl_name">
       <DasType>TEXT|0s</DasType>
       <Position>3</Position>
     </column>
-    <column id="537" parent="520" name="rootpage">
+    <column id="551" parent="522" name="rootpage">
       <DasType>INT|0s</DasType>
       <Position>4</Position>
     </column>
-    <column id="538" parent="520" name="sql">
+    <column id="552" parent="522" name="sql">
       <DasType>TEXT|0s</DasType>
       <Position>5</Position>
     </column>
-    <column id="539" parent="521" name="name">
+    <column id="553" parent="523" name="name">
       <Position>1</Position>
     </column>
-    <column id="540" parent="521" name="seq">
+    <column id="554" parent="523" name="seq">
       <Position>2</Position>
     </column>
-    <column id="541" parent="522" name="id">
+    <column id="555" parent="524" name="id">
       <AutoIncrement>1</AutoIncrement>
       <DasType>integer|0s</DasType>
       <Position>1</Position>
     </column>
-    <column id="542" parent="522" name="fname">
+    <column id="556" parent="524" name="fname">
       <DasType>varchar|0s</DasType>
       <DefaultExpression>30</DefaultExpression>
       <Position>2</Position>
     </column>
-    <column id="543" parent="522" name="lname">
+    <column id="557" parent="524" name="lname">
       <DasType>varchar|0s</DasType>
       <DefaultExpression>30</DefaultExpression>
       <Position>3</Position>
     </column>
-    <column id="544" parent="522" name="email">
+    <column id="558" parent="524" name="email">
       <DasType>varchar|0s</DasType>
       <DefaultExpression>80</DefaultExpression>
       <Position>4</Position>
     </column>
-    <column id="545" parent="522" name="password">
+    <column id="559" parent="524" name="password">
       <DasType>char|0s</DasType>
       <DefaultExpression>60</DefaultExpression>
       <Position>5</Position>
     </column>
-    <index id="546" parent="522" name="sqlite_autoindex_user_1">
+    <column id="560" parent="524" name="is_admin">
+      <DasType>integer|0s</DasType>
+      <Position>6</Position>
+    </column>
+    <index id="561" parent="524" name="sqlite_autoindex_user_1">
       <ColNames>email</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Unique>1</Unique>
     </index>
-    <key id="547" parent="522" name="id_pk">
+    <key id="562" parent="524" name="id_pk">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="548" parent="522" name="id_pk_2">
+    <key id="563" parent="524" name="id_pk_2">
       <ColNames>email</ColNames>
       <UnderlyingIndexName>sqlite_autoindex_user_1</UnderlyingIndexName>
     </key>

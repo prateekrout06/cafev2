@@ -18,11 +18,18 @@
             <a href="/">home</a>
             <a href="/menu/1">menu</a>
             <a href="/contact">contact</a>
+            {% if is_admin %}
+            <a href="/admin">admin</a>
+            {% endif %}
             {% if logged_in %}
             <a href="/logout">logout</a>
-            <a href="/admin">admin</a>
             {% else %}
             <a href="/login">login</a>
+            {% endif %}
+            {% if ordering %}
+            <a href="/cart">cart</a>
+            {% else %}
+            <a href="/menu/1?order=start">order</a>
             {% endif %}
         </div>
     </div>

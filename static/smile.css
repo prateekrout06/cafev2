@@ -80,6 +80,22 @@ a, a:visited {
     text-decoration: none;
 }
 
+.category-menu {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+.category-item {
+    width: 32%;
+}
+
+.category-item h2 {
+    text-align: center;
+    font-size: 1.2rem;
+    padding: 0.5rem;
+}
+
 .product-box img {
     /*max-width:200px;*/
 }

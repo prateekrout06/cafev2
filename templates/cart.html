@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block pageheading %}
+cart
+{% endblock %}
+
+{% block main %}
+<table class="cart-table">
+    <tr>
+        <th>Item</th>
+        <th class="number">Quantity</th>
+        <th class="number">Each</th>
+        <th class="number">Total</th>
+    </tr>
+    {% for product in products %}
+    <tr>
+        <td>{{ product[2] }}</td>
+        <td class="number">{{ product[1] }}</td>
+        <td class="number">${{ product[3] }}</td>
+        <td class="number">${{ product[4] }}</td>
+    </tr>
+    {% endfor %}
+    <tr>
+        <td colspan="4" class="cart-total"><strong>Total ${{ total }}</strong></td>
+    </tr>
+</table>
+
+<p><a href="/cancel_order">Cancel Order</a></p>
+
+<form class="myform" method="post">
+    <div class="form-group">
+        <div class="form-label"><label for="name">Name for Order:</label></div>
+        <div class="form-element"><input type="text" name="name" id="name" maxlength="30"></div>
+    </div>
+    <div class="form-group">
+        <div class="form-level"></div>
+        <div class="form-element"><input type="submit" value="Place order"></div>
+    </div>
+</form>
+{% endblock %}
