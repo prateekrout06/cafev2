@@ -6,7 +6,7 @@ from sqlite3 import Error
 from flask_bcrypt import Bcrypt
 
 # DATABASE = "C:/Users/GGPC/PycharmProjects/Smile/smile.db" # Desktop
-DATABASE = "C:/Users/ethan/PycharmProjects/SmileCafe/smile.db"  # Laptop
+DATABASE = "smile.db"  # Laptop
 
 app = Flask(__name__)
 bcrypt = Bcrypt(app)
